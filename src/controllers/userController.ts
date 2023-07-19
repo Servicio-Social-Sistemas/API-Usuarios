@@ -48,3 +48,24 @@ export const allResponses = async (_req: Request, res: Response) => {
     res.status(500).json({ message: 'Error al obtener las respuestas' });
   }
 };
+
+
+export const deleteResponse = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const params: DocumentClient.DeleteItemInput = {
+      TableName: process.env.DYNAMODB_TABLE_NAME || '',
+      Key: {
+        id: id
+      }
+    };
+
+    await dynamoDB.delete(params).promise();
+
+    res.status(200).json({ message: 'Respuesta eliminada con éxito' });
+  } catch (error) {
+    console.error('Error al eliminar la respuesta:', error);
+    res.status(500).json({ message: 'Error al eliminar la respuesta' });
+  }
+};
