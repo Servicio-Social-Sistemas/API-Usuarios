@@ -15,9 +15,9 @@ app.use(express.json());
 
 app.use('/api/v1', responsesRouter);
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Bienvenido a la API de respuestas');
-})
+app.get('/ping', (_req: Request, res: Response) => {
+    return res.send('pong 🏓')
+  })
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
