@@ -8,7 +8,6 @@ export const saveResponse = async (req: Request, res: Response) => {
   try {
     const { responses, ubication } = req.body;
 
-    console.log(responses, ubication)
     if (!responses || !ubication) {
       return res.status(400).json({ message: 'Faltan datos requeridos' });
     }

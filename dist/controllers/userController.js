@@ -15,7 +15,6 @@ const uuid = require('uuid');
 const saveResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { responses, ubication } = req.body;
-        console.log(responses, ubication);
         if (!responses || !ubication) {
             return res.status(400).json({ message: 'Faltan datos requeridos' });
         }

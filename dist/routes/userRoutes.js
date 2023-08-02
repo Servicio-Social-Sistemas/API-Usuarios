@@ -8,5 +8,6 @@ const userController_1 = require("../controllers/userController");
 const router = express_1.default.Router();
 router.post('/save', userController_1.saveResponse);
 router.get('/all', userController_1.allResponses);
+router.delete('/delete/:id', userController_1.deleteResponse);
 exports.default = router;
 //# sourceMappingURL=userRoutes.js.map
