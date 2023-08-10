@@ -9,33 +9,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteResponse = exports.allResponses = exports.saveResponse = void 0;
+exports.deleteResponse = exports.submitResponse = exports.allResponses = exports.saveSurvey = void 0;
 const awsConfig_1 = require("../utils/awsConfig");
 const uuid = require('uuid');
-const saveResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const saveSurvey = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { responses, ubication } = req.body;
-        if (!responses || !ubication) {
-            return res.status(400).json({ message: 'Faltan datos requeridos' });
+        const { name, description, questions, responses } = req.body;
+        console.log(req.body);
+        if (!name || !description || !questions || !responses) {
+            return res.status(400).json({ message: 'Required data missing' });
         }
+        const survey = {
+            id: uuid.v4(),
+            name: name,
+            description: description,
+            questions: questions,
+            responses: responses,
+        };
         const params = {
             TableName: process.env.DYNAMODB_TABLE_NAME || '',
-            Item: {
-                id: uuid.v4(),
-                responses,
-                ubication,
-                createdAt: new Date().toISOString()
-            }
+            Item: survey,
         };
         yield awsConfig_1.dynamoDB.put(params).promise();
-        res.status(200).json({ message: 'Datos almacenados correctamente' });
+        res.status(200).json({ message: 'Data stored successfully' });
     }
     catch (error) {
-        console.error('Error al procesar la solicitud:', error);
-        res.status(500).json({ message: 'Error al procesar la solicitud' });
+        console.error('Error processing the request:', error);
+        res.status(500).json({ message: 'Error processing the request' });
     }
 });
-exports.saveResponse = saveResponse;
+exports.saveSurvey = saveSurvey;
 const allResponses = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const params = {
@@ -51,6 +54,32 @@ const allResponses = (_req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.allResponses = allResponses;
+const submitResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { surveyId, responses, location } = req.body;
+        console.log(req.body);
+        if (!surveyId || !responses || !location) {
+            return res.status(400).json({ message: 'Required data missing' });
+        }
+        const surveyResponse = {
+            id: uuid.v4(),
+            surveyId: surveyId,
+            responses: responses,
+            location: {
+                latitude: location.latitude,
+                longitude: location.longitude,
+            },
+        };
+        // Save the survey response data
+        // ... your code for saving survey response data ...
+        res.status(200).json({ message: 'Survey response saved successfully' });
+    }
+    catch (error) {
+        console.error('Error processing the request:', error);
+        res.status(500).json({ message: 'Error processing the request' });
+    }
+});
+exports.submitResponse = submitResponse;
 const deleteResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
