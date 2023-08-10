@@ -54,6 +54,7 @@ const allResponses = (_req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.allResponses = allResponses;
+//TODO: hacer pruebas
 const submitResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { surveyId, responses, location } = req.body;
