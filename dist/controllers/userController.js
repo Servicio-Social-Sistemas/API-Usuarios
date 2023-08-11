@@ -71,8 +71,6 @@ const submitResponse = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 longitude: location.longitude,
             },
         };
-        // Save the survey response data
-        // ... your code for saving survey response data ...
         res.status(200).json({ message: 'Survey response saved successfully' });
     }
     catch (error) {

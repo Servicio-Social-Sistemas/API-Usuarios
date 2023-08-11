@@ -73,9 +73,6 @@ export const submitResponse = async (req: Request, res: Response) => {
       },
     };
 
-    // Save the survey response data
-    // ... your code for saving survey response data ...
-
     res.status(200).json({ message: 'Survey response saved successfully' });
   } catch (error) {
     console.error('Error processing the request:', error);
