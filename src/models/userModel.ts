@@ -6,7 +6,6 @@ interface ResponseModel {
     answer5: string;
     answer6: string;
     answer7: string;
-    answer8: string,
   }
 
   interface UbicationModel{
